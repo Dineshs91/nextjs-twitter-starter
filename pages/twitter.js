@@ -7,11 +7,11 @@ function TwitterCard(props) {
     <div className="p-2 border rounded-md w-auto overflow-hidden">
       <div className="relative">
         <img className="mx-auto" src={props.twitterInfo.profileBannerURL} />
-        <div className="absolute left-4 top-24 border-4 border-white rounded-full">
+        <div className="top-14 absolute left-4 lg:top-24 border-4 border-white rounded-full">
           <img className="rounded-full h-24 w-24" src={profileImageURL} />
         </div>
       </div>
-      <div className="mt-16 px-4">
+      <div className="mt-28 lg:mt-16 px-4">
         <p className="font-bold text-lg leading-6">{props.twitterInfo.name}</p>
         <p className="text-sm text-gray-600">@{props.twitterInfo.screenName}</p>
         <p className="mt-4 text-sm whitespace-pre-wrap">{props.twitterInfo.description}</p>
@@ -22,7 +22,7 @@ function TwitterCard(props) {
 
 export default function Twitter(props) {
   return (
-    <div className="max-w-md mx-auto mt-12">
+    <div className="p-2 max-w-xs lg:max-w-md mx-auto mt-12">
       <h2 className="text-2xl font-semibold">Twitter Card</h2>
 
       <div className="mt-8">

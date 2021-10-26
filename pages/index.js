@@ -1,9 +1,8 @@
 import Head from 'next/head'
-import Image from 'next/image'
 
 export default function Home() {
   return (
-    <div className="mt-4 max-w-4xl mx-auto">
+    <div className="mt-4 max-w-xs p-4 md:max-w-md lg:max-w-2xl xl:max-w-4xl mx-auto">
       <Head>
         <title>Next Twitter Starter</title>
         <meta name="description" content="Next Twitter Starter" />

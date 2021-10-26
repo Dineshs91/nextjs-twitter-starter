@@ -51,6 +51,9 @@ The response will be
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
+## Example app
+
+Navigate to http://localhost:3000/twitter to see an example which displays a Twitter card with a user's information.
 
 ## Deploy on Vercel
 
