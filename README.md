@@ -12,9 +12,12 @@ Create `.env.local` file in the project root and add the following content in it
 ```
 TWITTER_CONSUMER_KEY=
 TWITTER_CONSUMER_KEY_SECRET=
+TEST_TWITTER_HANDLE=
 ```
 
 To get the Twitter keys, visit https://developer.twitter.com/en/portal/dashboard and create a standalone app. Fetch the consumer key and secret and add it to the `.env.local` file.
+
+Add your twitter handle for `TEST_TWITTER_HANDLE`. This is used in the twitter sample page.
 
 Run the development server:
 
