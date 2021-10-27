@@ -70,3 +70,9 @@ Note: Twitter user is taken from the environment variable `TEST_TWITTER_HANDLE`
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Note
+
+If you would like to make requests on behalf of another user, you will need to generate a separate set of Access Tokens for that user using the 3-legged OAuth flow, and pass that user's tokens with your OAuth 1.0a User Context requests.
+
+Check out [next-auth.js](https://next-auth.js.org/getting-started/introduction) for OAuth.
