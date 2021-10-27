@@ -39,7 +39,6 @@ export async function getServerSideProps(context) {
   let twitterInfo = null
 
   const userResponse = await fetchUser(twitterHandle)
-  console.log("data", userResponse.data)
   twitterInfo = {
     'screenName': userResponse.data.screen_name,
     'name': userResponse.data.name,

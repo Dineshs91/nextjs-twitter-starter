@@ -19,6 +19,12 @@ To get the Twitter keys, visit https://developer.twitter.com/en/portal/dashboard
 
 Add your twitter handle for `TEST_TWITTER_HANDLE`. This is used in the twitter sample page.
 
+Install dependencies
+
+```bash
+yarn install
+```
+
 Run the development server:
 
 ```bash
@@ -31,7 +37,7 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 There is a sample API [http://localhost:3000/api/twitter-user](http://localhost:3000/api/twitter-user). This endpoint can be edited in `pages/api/twitter-user.js`.
 
-Do a post request to this API with the request body
+Test the API from postman, by sending a post request with the request body
 
 ```
 {
@@ -49,11 +55,15 @@ The response will be
 }
 ```
 
+Make sure the header `Content-Type` is set to `application/json`
+
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Example app
+## Example page
 
-Navigate to http://localhost:3000/twitter to see an example which displays a Twitter card with a user's information.
+Navigate to http://localhost:3000/twitter to see an example which displays a Twitter card with a Twitter user's information.
+
+Note: Twitter user is taken from the environment variable `TEST_TWITTER_HANDLE`
 
 ## Deploy on Vercel
 
