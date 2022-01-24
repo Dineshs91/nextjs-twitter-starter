@@ -40,11 +40,11 @@ export async function getServerSideProps(context) {
 
   const userResponse = await fetchUser(twitterHandle)
   twitterInfo = {
-    'screenName': userResponse.data.screen_name,
-    'name': userResponse.data.name,
-    'profileImageURL': userResponse.data.profile_image_url_https,
-    'profileBannerURL': userResponse.data.profile_banner_url,
-    'description': userResponse.data.description
+    'screenName': userResponse.screen_name,
+    'name': userResponse.name,
+    'profileImageURL': userResponse.profile_image_url_https,
+    'profileBannerURL': userResponse.profile_banner_url,
+    'description': userResponse.description
   }
 
   return {

@@ -4,7 +4,7 @@ This is a Next.js Twitter starter kit.
 
 - [Next.js](https://nextjs.org/docs)
 - [Tailwindcss](https://tailwindcss.com/docs)
-- [Twit](https://github.com/ttezel/twit)
+- [Twitter-lite](https://github.com/draftbit/twitter-lite)
 
 ## Getting Started
 Create `.env.local` file in the project root and add the following content in it
@@ -12,20 +12,41 @@ Create `.env.local` file in the project root and add the following content in it
 ```
 TWITTER_CONSUMER_KEY=
 TWITTER_CONSUMER_KEY_SECRET=
+TWITTER_BEARER_TOKEN=
 TEST_TWITTER_HANDLE=
 ```
 
-To get the Twitter keys, visit https://developer.twitter.com/en/portal/dashboard and create a standalone app. Fetch the consumer key and secret and add it to the `.env.local` file.
+To get the Twitter keys, visit https://developer.twitter.com/en/portal/dashboard and create a standalone app. Fetch the consumer key, secret and bearer token and add it to the `.env.local` file.
 
 Add your twitter handle for `TEST_TWITTER_HANDLE`. This is used in the twitter sample page.
 
-Install dependencies
+#### App vs. User authentication
+
+Twitter has two different authentication options:
+
+- App: higher rate limits. Great for building your own Twitter App.
+- User: lower rate limits. Great for making requests on behalf of a User.
+
+**User** authentication requires:
+
+- `consumer_key`
+- `consumer_secret`
+- `access_token_key`
+- `access_token_secret`
+
+**App** authentication requires:
+
+- `bearer_token`
+
+For the example in this starter, we use App authentication which makes use of the `bearer_token`
+
+#### Install dependencies
 
 ```bash
 yarn install
 ```
 
-Run the development server:
+#### Run the development server:
 
 ```bash
 yarn dev
@@ -37,11 +58,11 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 There is a sample API [http://localhost:3000/api/twitter-user](http://localhost:3000/api/twitter-user). This endpoint can be edited in `pages/api/twitter-user.js`.
 
-Test the API from postman, by sending a post request with the request body
+Test the API from postman, by sending a `POST` request with the request body
 
 ```
 {
-    "twitter_handle": "SDinesh91"
+    "twitterHandle": "SDinesh91"
 }
 ```
 

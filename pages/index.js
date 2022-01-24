@@ -44,9 +44,9 @@ export default function Home() {
             <p>Find in-depth information about Next.js features and API.</p>
           </a>
 
-          <a href="https://github.com/ttezel/twit" className="flex-auto border rounded-md px-4 py-6 hover:bg-gray-100">
-            <h2 className="font-semibold text-lg">Twit Documentation &rarr;</h2>
-            <p>Find Twit client documentation.</p>
+          <a href="https://github.com/draftbit/twitter-lite" className="flex-auto border rounded-md px-4 py-6 hover:bg-gray-100">
+            <h2 className="font-semibold text-lg">Twitter-lite Documentation &rarr;</h2>
+            <p>Find Twitter-lite documentation.</p>
           </a>
 
           <a href="https://tailwindcss.com/docs" className="flex-auto border rounded-md px-4 py-6 hover:bg-gray-100">

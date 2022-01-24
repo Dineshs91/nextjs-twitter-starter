@@ -25,9 +25,9 @@ export default async (req, res) => {
   
       const userResponse = await fetchUser(twitterHandle)
       let twitterInfo = {
-        'screen_name': userResponse.data.screen_name,
-        'name': userResponse.data.name,
-        'profile_image_url': userResponse.data.profile_image_url_https
+        'screen_name': userResponse.screen_name,
+        'name': userResponse.name,
+        'profile_image_url': userResponse.profile_image_url_https
       }
     
       res.status(200).json(twitterInfo)

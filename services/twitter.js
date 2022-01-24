@@ -1,11 +1,10 @@
-var Twit = require('twit')
+import Twitter from 'twitter-lite';
 
 export const fetchUser = async (screen_name) => {
-  var T = new Twit({
-    consumer_key:         process.env.TWITTER_CONSUMER_KEY,
-    consumer_secret:      process.env.TWITTER_CONSUMER_KEY_SECRET,
-    app_only_auth:        true
-  })
+  const client = new Twitter({
+    version: "1.1",
+    bearer_token: process.env.TWITTER_BEARER_TOKEN
+  });
 
-  return T.get('users/show', { screen_name: screen_name });
+  return client.get('users/show', { screen_name: screen_name });
 }
