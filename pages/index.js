@@ -180,13 +180,13 @@ export default function Home() {
                   </p>
                 </div>
                 <p className="mt-4 mb-0 text-xs tracking-wider text-left">
-                  Made at holr
+                  Made with holr
                 </p>
               </div>
               {/* Style 2 */}
-              <div className="relative p-8 border-0 rounded-lg bg-xlight border-brand hover:cursor-pointer group">
-                <div className="grid grid-cols-3 p-8 bg-white rounded-lg shadow-lg shadow-brand">
-                  <div className="cols-span-1">
+              <div className="relative flex flex-col items-start justify-center p-8 border-0 rounded-lg bg-xlight border-brand hover:cursor-pointer group">
+                <div className="grid grid-cols-3 gap-6 p-8 bg-white rounded-lg shadow-lg shadow-brand">
+                  <div className="flex items-center h-full col-span-1">
                     <Image
                       src="/profile.jpg"
                       width={486}
@@ -194,7 +194,7 @@ export default function Home() {
                       className="object-scale-down overflow-hidden rounded-full"
                     />
                   </div>
-                  <div className="cols-span-2">
+                  <div className="col-span-2">
                     <p className="mb-1 text-2xl font-bold text-dark">
                       Joe Jenkins
                     </p>
@@ -207,6 +207,9 @@ export default function Home() {
                     </p>
                   </div>
                 </div>
+                <p className="mt-4 mb-0 text-xs tracking-wider text-left">
+                  Made with holr
+                </p>
               </div>
             </article>
             <div className="flex items-center mt-6">
@@ -229,12 +232,12 @@ export default function Home() {
               </Link>
             </div>
           </section>
-          {/* Select Style */}
+          {/* Edit Colors */}
           <section className="flex flex-col pb-12 mb-12 border-b-2 border-xlight">
             <p className="mb-0 font-semibold tracking-wide uppercase text-mid">
-              Step 2
+              Step 3
             </p>
-            <h1 className="mb-6 text-4xl">Select Style</h1>
+            <h1 className="mb-6 text-4xl">Edit Colors</h1>
             <form className="flex">
               <input
                 className="w-full h-12 p-4 bg-white border rounded-lg border-xlight"
