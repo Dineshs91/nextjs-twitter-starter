@@ -8,6 +8,7 @@ import { GoToNextStep } from "../components/GoToNextStep";
 import { MadeWithTag } from "../components/MadeWithTag";
 
 import { UserContext } from "../pages/_app";
+import { ColorSquare } from "../components/ColorSquare";
 
 export default function Home() {
   const { state, dispatch } = useContext(UserContext);
@@ -200,15 +201,15 @@ export default function Home() {
               {/* Style 2 - Basic Alternative */}
               <div
                 className={`bg-xlight relative flex flex-col items-start justify-center p-8 rounded-lg  hover:cursor-pointer border-8 group transition-all duration-150 ease-in-out ${
-                  selectedStyle === "basic-alternative"
+                  selectedStyle === "basic-alt"
                     ? "border-brand"
                     : "border-xlight"
                 }`}
                 onClick={() => {
-                  setSelectedStyle("basic-alternative");
+                  setSelectedStyle("basic-alt");
                 }}
               >
-                {selectedStyle === "basic-alternative" ? <SelectedTag /> : null}
+                {selectedStyle === "basic-alt" ? <SelectedTag /> : null}
                 <div className="grid grid-cols-3 gap-6 p-8 bg-white rounded-lg shadow-lg shadow-light/30">
                   <div className="flex items-center h-full col-span-1">
                     <Image
@@ -328,113 +329,100 @@ export default function Home() {
                 {/* Color Buttons */}
                 <article className="flex flex-col w-auto gap-y-4">
                   <div className="flex gap-x-4">
-                    <button
-                      onClick={() => {
-                        handleColorSelection("bg-red-500", "text-red-500");
-                      }}
-                      className="w-12 h-12 bg-red-500 rounded-lg"
-                    ></button>
-                    <button
-                      onClick={() => {
-                        handleColorSelection(
-                          "bg-orange-500",
-                          "text-orange-500"
-                        );
-                      }}
-                      className="w-12 h-12 bg-orange-500 rounded-lg"
-                    ></button>
-                    <button
-                      onClick={() => {
-                        handleColorSelection("bg-amber-500", "text-amber-500");
-                      }}
-                      className="w-12 h-12 rounded-lg bg-amber-500"
-                    ></button>
-                    <button
-                      onClick={() => {
-                        handleColorSelection(
-                          "bg-yellow-500",
-                          "text-yellow-500"
-                        );
-                      }}
-                      className="w-12 h-12 bg-yellow-500 rounded-lg"
-                    ></button>
-                    <button
-                      onClick={() => {
-                        handleColorSelection("bg-lime-500", "text-lime-500");
-                      }}
-                      className="w-12 h-12 rounded-lg bg-lime-500"
-                    ></button>
-                    <button
-                      onClick={() => {
-                        handleColorSelection("bg-green-500", "text-green-500");
-                      }}
-                      className="w-12 h-12 bg-green-500 rounded-lg"
-                    ></button>
-                    <button
-                      onClick={() => {
-                        handleColorSelection(
-                          "bg-emerald-500",
-                          "text-emerald-500"
-                        );
-                      }}
-                      className="w-12 h-12 rounded-lg bg-emerald-500"
-                    ></button>
+                    <ColorSquare
+                      bgColor={`bg-slate-500`}
+                      textColor={`text-slate-500`}
+                      handleColorSelection={handleColorSelection}
+                    />
+                    <ColorSquare
+                      bgColor={`bg-gray-500`}
+                      textColor={`text-gray-500`}
+                      handleColorSelection={handleColorSelection}
+                    />
+                    <ColorSquare
+                      bgColor={`bg-red-500`}
+                      textColor={`text-red-500`}
+                      handleColorSelection={handleColorSelection}
+                    />
+                    <ColorSquare
+                      bgColor={`bg-orange-500`}
+                      textColor={`text-orange-500`}
+                      handleColorSelection={handleColorSelection}
+                    />
+                    <ColorSquare
+                      bgColor={`bg-amber-500`}
+                      textColor={`text-amber-500`}
+                      handleColorSelection={handleColorSelection}
+                    />
+                    <ColorSquare
+                      bgColor={`bg-yellow-500`}
+                      textColor={`text-yellow-500`}
+                      handleColorSelection={handleColorSelection}
+                    />
                   </div>
                   <div className="flex gap-x-4">
-                    <button
-                      onClick={() => {
-                        handleColorSelection("bg-blue-500", "text-blue-500");
-                      }}
-                      className="w-12 h-12 bg-blue-500 rounded-lg"
-                    ></button>
-                    <button
-                      onClick={() => {
-                        handleColorSelection(
-                          "bg-indigo-500",
-                          "text-indigo-500"
-                        );
-                      }}
-                      className="w-12 h-12 bg-indigo-500 rounded-lg"
-                    ></button>
-                    <button
-                      onClick={() => {
-                        handleColorSelection(
-                          "bg-violet-500",
-                          "text-violet-500"
-                        );
-                      }}
-                      className="w-12 h-12 rounded-lg bg-violet-500"
-                    ></button>
-                    <button
-                      onClick={() => {
-                        handleColorSelection(
-                          "bg-purple-500",
-                          "text-purple-500"
-                        );
-                      }}
-                      className="w-12 h-12 bg-purple-500 rounded-lg"
-                    ></button>
-                    <button
-                      onClick={() => {
-                        handleColorSelection(
-                          "bg-fuchsia-500",
-                          "text-fuchsia-500"
-                        );
-                      }}
-                      className="w-12 h-12 rounded-lg bg-fuchsia-500"
-                    ></button>
-                    <button
-                      onClick={() => {
-                        handleColorSelection("bg-pink-500", "text-pink-500");
-                      }}
-                      className="w-12 h-12 bg-pink-500 rounded-lg"
-                    ></button>
-                    <button
-                      onClick={() => {
-                        handleColorSelection("bg-rose-500", "text-rose-500");
-                      }}
-                      className="w-12 h-12 rounded-lg bg-rose-500"
-                    ></button>
+                    <ColorSquare
+                      bgColor={`bg-lime-500`}
+                      textColor={`text-lime-500`}
+                      handleColorSelection={handleColorSelection}
+                    />
+                    <ColorSquare
+                      bgColor={`bg-green-500`}
+                      textColor={`text-green-500`}
+                      handleColorSelection={handleColorSelection}
+                    />
+                    <ColorSquare
+                      bgColor={`bg-emerald-500`}
+                      textColor={`text-emerald-500`}
+                      handleColorSelection={handleColorSelection}
+                    />
+                    <ColorSquare
+                      bgColor={`bg-teal-500`}
+                      textColor={`text-teal-500`}
+                      handleColorSelection={handleColorSelection}
+                    />
+                    <ColorSquare
+                      bgColor={`bg-cyan-500`}
+                      textColor={`text-cyan-500`}
+                      handleColorSelection={handleColorSelection}
+                    />
+                    <ColorSquare
+                      bgColor={`bg-blue-500`}
+                      textColor={`text-blue-500`}
+                      handleColorSelection={handleColorSelection}
+                    />
+                  </div>
+                  <div className="flex gap-x-4">
+                    <ColorSquare
+                      bgColor={`bg-indigo-500`}
+                      textColor={`text-indigo-500`}
+                      handleColorSelection={handleColorSelection}
+                    />
+                    <ColorSquare
+                      bgColor={`bg-violet-500`}
+                      textColor={`text-violet-500`}
+                      handleColorSelection={handleColorSelection}
+                    />
+                    <ColorSquare
+                      bgColor={`bg-purple-500`}
+                      textColor={`text-purple-500`}
+                      handleColorSelection={handleColorSelection}
+                    />
+                    <ColorSquare
+                      bgColor={`bg-fuchsia-500`}
+                      textColor={`text-fuchsia-500`}
+                      handleColorSelection={handleColorSelection}
+                    />
+                    <ColorSquare
+                      bgColor={`bg-pink-500`}
+                      textColor={`text-pink-500`}
+                      handleColorSelection={handleColorSelection}
+                    />
+                    <ColorSquare
+                      bgColor={`bg-rose-500`}
+                      textColor={`text-rose-500`}
+                      handleColorSelection={handleColorSelection}
+                    />
                   </div>
                 </article>
               </div>
