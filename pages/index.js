@@ -1,8 +1,27 @@
+import React, { useState, useContext, useRef } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import Image from "next/image";
+import { SelectedTag } from "../components/SelectedTag";
+import { GoToNextStep } from "../components/GoToNextStep";
+import { MadeWithTag } from "../components/MadeWithTag";
+
+import { UserContext } from "../pages/_app";
 
 export default function Home() {
+  const { state, dispatch } = useContext(UserContext);
+  const [selectedStyle, setSelectedStyle] = useState("basic-default");
+  const [cardBgColor, setCardBgColor] = useState("bg-blue-500");
+  const [cardTextColor, setCardTextColor] = useState("text-blue-500");
+  const searchRef = useRef(null);
+  const router = useRouter();
+
+  function handleColorSelection(bg, text) {
+    setCardBgColor(bg);
+    setCardTextColor(text);
+  }
+
   return (
     <div className="flex flex-col w-full max-h-screen">
       <Head>
@@ -10,8 +29,8 @@ export default function Home() {
         <meta name="description" content="Twitter shoutout machine" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex flex-grow bg-gradient-to-b from-white to-xlight">
-        <aside className="fixed top-0 h-full p-8 border-r w-80 border-xlight">
+      <div className="flex flex-grow">
+        <aside className="fixed top-0 h-full p-8 bg-white border-r w-80 border-xlight">
           <div className="flex items-center mb-8">
             <div className="flex items-center justify-center w-12 h-12 mr-2 rounded-2xl bg-brand">
               <svg
@@ -28,7 +47,7 @@ export default function Home() {
           </div>
           <div className="flex flex-col">
             <ul className="grid grid-cols-1 gap-2">
-              <li className="flex items-center p-3 text-left rounded-md">
+              <li className="flex items-center p-3 text-left rounded-md hover:cursor-pointer">
                 <svg
                   className="w-5 h-5 mr-3 text-mid"
                   fill="none"
@@ -45,7 +64,7 @@ export default function Home() {
                 </svg>
                 <p className="mb-0 text-lg text-mid">Find user</p>
               </li>
-              <li className="flex items-center p-3 text-left rounded-md bg-brand bg-opacity-5">
+              <li className="flex items-center p-3 text-left rounded-md bg-brand bg-opacity-5 hover:cursor-pointer">
                 <svg
                   className="w-5 h-5 mr-3 text-brand"
                   fill="none"
@@ -62,7 +81,7 @@ export default function Home() {
                 </svg>
                 <p className="mb-0 text-lg text-brand">Select Style</p>
               </li>
-              <li className="flex items-center p-3 text-left rounded-md">
+              <li className="flex items-center p-3 text-left rounded-md hover:cursor-pointer">
                 <svg
                   className="w-5 h-5 mr-3 text-mid"
                   fill="none"
@@ -79,7 +98,7 @@ export default function Home() {
                 </svg>
                 <p className="mb-0 text-lg text-mid">Edit Colors</p>
               </li>
-              <li className="flex items-center p-3 text-left rounded-md">
+              <li className="flex items-center p-3 text-left rounded-md hover:cursor-pointer">
                 <svg
                   className="w-5 h-5 mr-3 text-mid"
                   fill="none"
@@ -99,7 +118,7 @@ export default function Home() {
             </ul>
           </div>
         </aside>
-        <div className="flex flex-col w-full p-12 ml-80">
+        <main className="flex flex-col w-full p-12 ml-80">
           {/* Search Section */}
           <section className="flex flex-col pb-12 mb-12 border-b-2 border-xlight">
             <p className="mb-0 font-semibold tracking-wide uppercase text-mid">
@@ -117,30 +136,22 @@ export default function Home() {
               <input
                 className="w-full h-12 px-3 py-4 text-lg bg-white border rounded-tr-lg rounded-br-lg appearance-none text-mid border-xlight"
                 placeholder="danielcranney"
+                ref={searchRef}
               />
-              <button className="h-12 px-4 ml-4 text-sm font-bold tracking-wide text-white uppercase transition-all duration-150 ease-in-out rounded-md hover:bg-brandLight bg-brand">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch({
+                    type: "search-user",
+                    payload: searchRef.current.value,
+                  });
+                }}
+                className="h-12 px-4 ml-4 text-sm font-bold tracking-wide text-white uppercase transition-all duration-150 ease-in-out rounded-md hover:bg-brandLight bg-brand"
+              >
                 Search
               </button>
             </form>
-            <div className="flex items-center mt-6">
-              <svg
-                className="w-4 h-4 text-brand mr-1.5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                ></path>
-              </svg>
-              <Link href="">
-                <a className="text-brand">Go to next step</a>
-              </Link>
-            </div>
+            <GoToNextStep />
           </section>
           {/* Select Style */}
           <section className="flex flex-col pb-12 mb-12 border-b-2 border-xlight">
@@ -152,14 +163,19 @@ export default function Home() {
               Select one of the pre-made styles below
             </p>
             <article className="grid grid-cols-2 gap-6">
-              {/* Style 1 */}
-              <div className="relative p-8 border-8 rounded-lg bg-xlight border-brand hover:cursor-pointer group">
-                <div className="absolute z-10 p-2 rounded-md top-3 left-3 bg-brand">
-                  <p className="mb-0 text-xs font-semibold tracking-wider text-white uppercase">
-                    Selected
-                  </p>
-                </div>
-                <div className="flex flex-col items-center justify-center p-8 bg-white rounded-lg shadow-lg shadow-brand">
+              {/* Style 1 - Basic Default */}
+              <div
+                className={`relative p-8 rounded-lg bg-xlight border-8 hover:cursor-pointer group transition-all duration-150 ease-in-out ${
+                  selectedStyle === "basic-default"
+                    ? "border-brand"
+                    : "border-xlight"
+                }`}
+                onClick={() => {
+                  setSelectedStyle("basic-default");
+                }}
+              >
+                {selectedStyle === "basic-default" ? <SelectedTag /> : null}
+                <div className="flex flex-col items-center justify-center p-8 bg-white rounded-lg shadow-lg shadow-light/30">
                   <div className="w-1/3">
                     <Image
                       src="/profile.jpg"
@@ -169,23 +185,31 @@ export default function Home() {
                     />
                   </div>
                   <p className="mb-1 text-2xl font-bold text-dark">
-                    Joe Jenkins
+                    Sara Jenkins
                   </p>
                   <p className="text-base font-semibold tracking-wider text-brand">
-                    @joejenkins
+                    @sarajenkins90
                   </p>
                   <p className="mb-0 text-sm tracking-wide text-center text-mid">
                     A designer and developer in Queensland, Australia. Coding by
                     day, designing by night.
                   </p>
                 </div>
-                <p className="mt-4 mb-0 text-xs tracking-wider text-left">
-                  Made with holr
-                </p>
+                <MadeWithTag />
               </div>
-              {/* Style 2 */}
-              <div className="relative flex flex-col items-start justify-center p-8 border-0 rounded-lg bg-xlight border-brand hover:cursor-pointer group">
-                <div className="grid grid-cols-3 gap-6 p-8 bg-white rounded-lg shadow-lg shadow-brand">
+              {/* Style 2 - Basic Alternative */}
+              <div
+                className={`bg-xlight relative flex flex-col items-start justify-center p-8 rounded-lg  hover:cursor-pointer border-8 group transition-all duration-150 ease-in-out ${
+                  selectedStyle === "basic-alternative"
+                    ? "border-brand"
+                    : "border-xlight"
+                }`}
+                onClick={() => {
+                  setSelectedStyle("basic-alternative");
+                }}
+              >
+                {selectedStyle === "basic-alternative" ? <SelectedTag /> : null}
+                <div className="grid grid-cols-3 gap-6 p-8 bg-white rounded-lg shadow-lg shadow-light/30">
                   <div className="flex items-center h-full col-span-1">
                     <Image
                       src="/profile.jpg"
@@ -196,10 +220,10 @@ export default function Home() {
                   </div>
                   <div className="col-span-2">
                     <p className="mb-1 text-2xl font-bold text-dark">
-                      Joe Jenkins
+                      Sara Jenkins
                     </p>
                     <p className="text-base font-semibold tracking-wider text-brand">
-                      @joejenkins
+                      @sarajenkins90
                     </p>
                     <p className="mb-0 text-sm tracking-wide text-mid">
                       A designer and developer in Queensland, Australia. Coding
@@ -207,68 +231,281 @@ export default function Home() {
                     </p>
                   </div>
                 </div>
-                <p className="mt-4 mb-0 text-xs tracking-wider text-left">
-                  Made with holr
-                </p>
+                <MadeWithTag />
+              </div>
+              {/* Style 3 - With Banner Default */}
+              <div
+                className={`relative p-8 rounded-lg bg-xlight border-8 hover:cursor-pointer group transition-all duration-150 ease-in-out ${
+                  selectedStyle === "banner-default"
+                    ? "border-brand"
+                    : "border-xlight"
+                }`}
+                onClick={() => {
+                  setSelectedStyle("banner-default");
+                }}
+              >
+                {selectedStyle === "banner-default" ? <SelectedTag /> : null}
+                <div className="relative flex flex-col items-center justify-center p-8 overflow-hidden bg-white rounded-lg shadow-lg shadow-light/30">
+                  <div className="absolute top-0 w-full overflow-hidden bg-blue-500 h-28">
+                    <div className="bg-[url('/profile.jpg')] h-full bg-center opacity-20"></div>
+                  </div>
+                  <div className="w-1/3">
+                    <div className="bg-white border-2 border-white">
+                      <Image
+                        src="/profile.jpg"
+                        width={486}
+                        height={486}
+                        className="object-scale-down overflow-hidden rounded-full"
+                      />
+                    </div>
+                  </div>
+                  <p className="mb-1 text-2xl font-bold text-dark">
+                    Sara Jenkins
+                  </p>
+                  <p className="text-base font-semibold tracking-wider text-brand">
+                    @sarajenkins90
+                  </p>
+                  <p className="mb-0 text-sm tracking-wide text-center text-mid">
+                    A designer and developer in Queensland, Australia. Coding by
+                    day, designing by night.
+                  </p>
+                </div>
+                <MadeWithTag />
+              </div>
+              {/* Style 4 - With Banner Alternative */}
+              <div
+                className={`bg-xlight relative flex flex-col items-start justify-center p-8 rounded-lg  hover:cursor-pointer border-8 group transition-all duration-150 ease-in-out ${
+                  selectedStyle === "banner-alt"
+                    ? "border-brand"
+                    : "border-xlight"
+                }`}
+                onClick={() => {
+                  setSelectedStyle("banner-alt");
+                }}
+              >
+                {selectedStyle === "banner-alt" ? <SelectedTag /> : null}
+                <div className="relative grid grid-cols-3 gap-6 p-8 bg-white rounded-lg shadow-lg shadow-light/30">
+                  <div className="absolute top-0 left-0 w-20 h-full overflow-hidden bg-blue-500">
+                    <div className="bg-[url('/profile.jpg')] h-full bg-center opacity-20"></div>
+                  </div>
+                  <div className="flex items-center h-full col-span-1">
+                    <Image
+                      src="/profile.jpg"
+                      width={486}
+                      height={486}
+                      className="object-scale-down overflow-hidden rounded-full"
+                    />
+                  </div>
+                  <div className="col-span-2">
+                    <p className="mb-1 text-2xl font-bold text-dark">
+                      Sara Jenkins
+                    </p>
+                    <p className="text-base font-semibold tracking-wider text-brand">
+                      @sarajenkins90
+                    </p>
+                    <p className="mb-0 text-sm tracking-wide text-mid">
+                      A designer and developer in Queensland, Australia. Coding
+                      by day, designing by night.
+                    </p>
+                  </div>
+                </div>
+                <MadeWithTag />
               </div>
             </article>
-            <div className="flex items-center mt-6">
-              <svg
-                className="w-4 h-4 text-brand mr-1.5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                ></path>
-              </svg>
-              <Link href="">
-                <a className="text-brand">Go to next step</a>
-              </Link>
-            </div>
+            <GoToNextStep />
           </section>
           {/* Edit Colors */}
-          <section className="flex flex-col pb-12 mb-12 border-b-2 border-xlight">
-            <p className="mb-0 font-semibold tracking-wide uppercase text-mid">
-              Step 3
-            </p>
-            <h1 className="mb-6 text-4xl">Edit Colors</h1>
-            <form className="flex">
-              <input
-                className="w-full h-12 p-4 bg-white border rounded-lg border-xlight"
-                placeholder="@danielcranney"
-              />
-              <button className="h-12 px-4 ml-4 text-sm font-bold tracking-wide text-white uppercase transition-all duration-150 ease-in-out rounded-md hover:bg-brandLight bg-brand">
-                Search
-              </button>
-            </form>
-            <div className="flex items-center mt-6">
-              <svg
-                className="w-4 h-4 text-brand mr-1.5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                ></path>
-              </svg>
-              <Link href="">
-                <a className="text-brand">Go to next step</a>
-              </Link>
-            </div>
+          <section className="flex flex-col pb-12">
+            <article className="flex w-full">
+              <div className="w-1/2">
+                <p className="mb-0 font-semibold tracking-wide uppercase text-mid">
+                  Step 3
+                </p>
+                <h1 className="mb-2 text-4xl">Edit Colors</h1>
+                <p className="mb-6 text-lg">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                </p>
+                {/* Color Buttons */}
+                <article className="flex flex-col w-auto gap-y-4">
+                  <div className="flex gap-x-4">
+                    <button
+                      onClick={() => {
+                        handleColorSelection("bg-red-500", "text-red-500");
+                      }}
+                      className="w-12 h-12 bg-red-500 rounded-lg"
+                    ></button>
+                    <button
+                      onClick={() => {
+                        handleColorSelection(
+                          "bg-orange-500",
+                          "text-orange-500"
+                        );
+                      }}
+                      className="w-12 h-12 bg-orange-500 rounded-lg"
+                    ></button>
+                    <button
+                      onClick={() => {
+                        handleColorSelection("bg-amber-500", "text-amber-500");
+                      }}
+                      className="w-12 h-12 rounded-lg bg-amber-500"
+                    ></button>
+                    <button
+                      onClick={() => {
+                        handleColorSelection(
+                          "bg-yellow-500",
+                          "text-yellow-500"
+                        );
+                      }}
+                      className="w-12 h-12 bg-yellow-500 rounded-lg"
+                    ></button>
+                    <button
+                      onClick={() => {
+                        handleColorSelection("bg-lime-500", "text-lime-500");
+                      }}
+                      className="w-12 h-12 rounded-lg bg-lime-500"
+                    ></button>
+                    <button
+                      onClick={() => {
+                        handleColorSelection("bg-green-500", "text-green-500");
+                      }}
+                      className="w-12 h-12 bg-green-500 rounded-lg"
+                    ></button>
+                    <button
+                      onClick={() => {
+                        handleColorSelection(
+                          "bg-emerald-500",
+                          "text-emerald-500"
+                        );
+                      }}
+                      className="w-12 h-12 rounded-lg bg-emerald-500"
+                    ></button>
+                  </div>
+                  <div className="flex gap-x-4">
+                    <button
+                      onClick={() => {
+                        handleColorSelection("bg-blue-500", "text-blue-500");
+                      }}
+                      className="w-12 h-12 bg-blue-500 rounded-lg"
+                    ></button>
+                    <button
+                      onClick={() => {
+                        handleColorSelection(
+                          "bg-indigo-500",
+                          "text-indigo-500"
+                        );
+                      }}
+                      className="w-12 h-12 bg-indigo-500 rounded-lg"
+                    ></button>
+                    <button
+                      onClick={() => {
+                        handleColorSelection(
+                          "bg-violet-500",
+                          "text-violet-500"
+                        );
+                      }}
+                      className="w-12 h-12 rounded-lg bg-violet-500"
+                    ></button>
+                    <button
+                      onClick={() => {
+                        handleColorSelection(
+                          "bg-purple-500",
+                          "text-purple-500"
+                        );
+                      }}
+                      className="w-12 h-12 bg-purple-500 rounded-lg"
+                    ></button>
+                    <button
+                      onClick={() => {
+                        handleColorSelection(
+                          "bg-fuchsia-500",
+                          "text-fuchsia-500"
+                        );
+                      }}
+                      className="w-12 h-12 rounded-lg bg-fuchsia-500"
+                    ></button>
+                    <button
+                      onClick={() => {
+                        handleColorSelection("bg-pink-500", "text-pink-500");
+                      }}
+                      className="w-12 h-12 bg-pink-500 rounded-lg"
+                    ></button>
+                    <button
+                      onClick={() => {
+                        handleColorSelection("bg-rose-500", "text-rose-500");
+                      }}
+                      className="w-12 h-12 rounded-lg bg-rose-500"
+                    ></button>
+                  </div>
+                </article>
+              </div>
+              {/* Preview */}
+              <div className="flex w-1/2">
+                {/* Style 3 - With Banner Default */}
+                <div
+                  className={`flex flex-col relative p-8 rounded-lg bg-xlight border-8 hover:cursor-pointer group transition-all duration-150 ease-in-out border-xlight`}
+                >
+                  <div className="relative flex flex-col items-center justify-center p-8 overflow-hidden bg-white rounded-lg shadow-lg w-96 shadow-light/30">
+                    <div
+                      className={`absolute top-0 z-10 w-full overflow-hidden ${cardBgColor} h-28`}
+                    >
+                      <div className="h-full bg-center"></div>
+                    </div>
+                    <div className="relative z-30 flex items-center justify-center w-1/3">
+                      <div className="flex w-24 h-24 mt-2 mb-6 bg-gray-300 rounded-full"></div>
+                    </div>
+                    <div className="h-6 mb-2 rounded-md w-36 bg-dark"></div>
+                    <div
+                      className={`h-4 mb-4 rounded-md w-32 ${cardBgColor}`}
+                    ></div>
+                    <div className="flex flex-wrap items-center justify-center space-x-2 w-60">
+                      <div className={`h-3 rounded-md w-16 bg-light mb-2`}>
+                        &nbsp;
+                      </div>
+                      <div className={`h-3 rounded-md w-12 bg-light mb-2`}>
+                        &nbsp;
+                      </div>
+                      <div className={`h-3 rounded-md w-8 bg-light mb-2`}>
+                        &nbsp;
+                      </div>
+                      <div className={`h-3 rounded-md w-10 bg-light mb-2`}>
+                        &nbsp;
+                      </div>
+                      <div className={`h-3 rounded-md w-12 bg-light mb-2`}>
+                        &nbsp;
+                      </div>
+                      <div className={`h-3 rounded-md w-8 bg-light mb-2`}>
+                        &nbsp;
+                      </div>
+                      <div className={`h-3 rounded-md w-12 bg-light mb-2`}>
+                        &nbsp;
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
           </section>
-        </div>
-      </main>
+          {/* Generate Button */}
+          <section>
+            <button
+              onClick={() => {
+                router.push({
+                  pathname: "/share",
+                  query: {
+                    searchUser: state.user,
+                    cardStyle: selectedStyle,
+                    textColor: cardTextColor,
+                    bgColor: cardBgColor,
+                  },
+                });
+              }}
+              className="p-3.5 font-bold text-white rounded-lg bg-brand"
+            >
+              Generate Shoutout
+            </button>
+          </section>
+        </main>
+      </div>
     </div>
   );
 }

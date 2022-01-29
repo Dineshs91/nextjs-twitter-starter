@@ -11,6 +11,12 @@
   }
 }
 
+@layer base {
+  body {
+    @apply bg-gradient-to-b from-white to-xlight bg-fixed;
+  }
+}
+
 /* Typography Styles */
 @layer base {
   h1,
@@ -42,8 +48,7 @@
     @apply text-sm md:text-base;
   }
   p {
-    @apply text-base mb-4 leading-relaxed
-    text-mid font-body;
+    @apply text-base mb-4 leading-relaxed font-body text-mid;
   }
   a {
     @apply text-brand font-semibold hover:text-dark transition-all duration-150 ease-in-out;

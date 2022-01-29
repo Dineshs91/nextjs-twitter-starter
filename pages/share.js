@@ -1,3 +1,4 @@
+import React, { useContext } from "react";
 import { fetchUser } from "../services/twitter";
 
 function TwitterCard(props) {
@@ -26,7 +27,7 @@ function TwitterCard(props) {
   );
 }
 
-export default function Twitter(props) {
+export default function Share(props) {
   return (
     <div className="max-w-xs p-2 mx-auto mt-12 lg:max-w-md">
       <h2 className="text-2xl font-semibold">Twitter Card</h2>
@@ -43,7 +44,10 @@ export default function Twitter(props) {
 }
 
 export async function getServerSideProps(context) {
-  let twitterHandle = "dr";
+  console.log(context.query.searchUser);
+  console.log(context.query.cardStyle);
+
+  let twitterHandle = context.query.searchUser;
   let twitterInfo = null;
 
   const userResponse = await fetchUser(twitterHandle);
