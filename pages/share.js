@@ -40,7 +40,6 @@ function BasicDefault(props) {
     ""
   );
   let textColor = props.textColor;
-  let bgColor = props.bgColor;
 
   return (
     <div
@@ -78,6 +77,7 @@ function BasicAlternative(props) {
     /_normal/g,
     ""
   );
+  let textColor = props.textColor;
 
   return (
     <div

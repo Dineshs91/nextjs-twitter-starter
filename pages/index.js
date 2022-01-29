@@ -138,19 +138,13 @@ export default function Home() {
                 className="w-full h-12 px-3 py-4 text-lg bg-white border rounded-tr-lg rounded-br-lg appearance-none text-mid border-xlight"
                 placeholder="danielcranney"
                 ref={searchRef}
-              />
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
+                onChange={() =>
                   dispatch({
                     type: "search-user",
                     payload: searchRef.current.value,
-                  });
-                }}
-                className="h-12 px-4 ml-4 text-sm font-bold tracking-wide text-white uppercase transition-all duration-150 ease-in-out rounded-md hover:bg-brandLight bg-brand"
-              >
-                Search
-              </button>
+                  })
+                }
+              />
             </form>
             <GoToNextStep />
           </section>
