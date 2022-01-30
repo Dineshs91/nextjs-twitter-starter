@@ -1,8 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Image from "next/image";
+import Head from "next/head";
 import { fetchUser } from "../services/twitter";
 import { MadeWithTag } from "../components/MadeWithTag";
+import MainLayout from "../components/MainLayout";
 import { urlObjectKeys } from "next/dist/shared/lib/utils";
+
+import { UserContext } from "../pages/_app";
 
 // function TwitterCard(props) {
 //   console.log(props);
@@ -189,8 +193,8 @@ function BannerAlternative(props) {
         <div className="flex items-center h-full col-span-1">
           <Image
             src={profileImageURL}
-            width={486}
-            height={486}
+            width={102}
+            height={102}
             className="object-scale-down overflow-hidden rounded-full"
           />
         </div>
@@ -211,11 +215,29 @@ function BannerAlternative(props) {
 
 export default function Share(props) {
   console.log(props);
-  return (
-    <div className="max-w-xs p-2 mx-auto mt-12 lg:max-w-md">
-      <h2 className="text-2xl font-semibold">Twitter Card</h2>
+  const { state, dispatch } = useContext(UserContext);
 
-      <div className="mt-8">
+  useEffect(() => {
+    dispatch({
+      type: "set-count",
+      payload: 4,
+    });
+  }, []);
+
+  return (
+    <main className="flex flex-col w-full p-12 ml-80">
+      <Head>
+        <title>holr | Share Your Shoutout</title>
+        <meta name="description" content="Twitter shoutout machine" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <h1 className="mb-2 text-4xl">Share your Shoutout</h1>
+      <p className="mb-6 text-lg">
+        We've generated an image for you to share in your shoutout. Simply
+        download it as a JPG and tweet it out!
+      </p>
+
+      <div className="mt-8 w-128">
         {!props.twitterInfo ? (
           <p>Couldn't fetch information from Twitter</p>
         ) : props.cardStyle === "basic-default" ? (
@@ -244,7 +266,7 @@ export default function Share(props) {
           />
         ) : null}
       </div>
-    </div>
+    </main>
   );
 }
 
@@ -278,3 +300,7 @@ export async function getServerSideProps(context) {
     },
   };
 }
+
+Share.getLayout = function getLayout(page) {
+  return <MainLayout>{page}</MainLayout>;
+};

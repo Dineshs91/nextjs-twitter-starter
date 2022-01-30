@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
+import { UserContext } from "../pages/_app";
 
-export const GoToNextStep = () => {
+export const GoToNextStep = ({ newCount }) => {
+  const { state, dispatch } = useContext(UserContext);
+
   return (
-    <button className="inline-flex items-center self-start p-3 mt-6 transition-all duration-150 ease-in-out bg-opacity-0 rounded-md bg-none hover:bg-brand hover:bg-opacity-5 group">
+    <button
+      onClick={() => {
+        dispatch({
+          type: "set-count",
+          payload: newCount,
+        });
+      }}
+      className="inline-flex items-center self-start p-3 mt-6 transition-all duration-150 ease-in-out bg-opacity-0 rounded-md bg-none hover:bg-brand hover:bg-opacity-5 group"
+    >
       <svg
         className="w-3 h-3 text-mid group-hover:text-brand mr-1.5"
         fill="none"

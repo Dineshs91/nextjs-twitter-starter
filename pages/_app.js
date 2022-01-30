@@ -17,10 +17,10 @@ function reducer(state, action) {
         ...state,
         searchUser: action.payload,
       };
-    case "increment-count":
+    case "set-count":
       return {
         ...state,
-        count: state.count + 1,
+        count: action.payload,
       };
     default:
       throw new Error();
@@ -29,9 +29,10 @@ function reducer(state, action) {
 
 function MyApp({ Component, pageProps }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const getLayout = Component.getLayout || ((page) => page);
   return (
     <UserContext.Provider value={{ state, dispatch }}>
-      <Component {...pageProps} />
+      {getLayout(<Component {...pageProps} />)}
     </UserContext.Provider>
   );
 }
