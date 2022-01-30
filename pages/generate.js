@@ -6,7 +6,8 @@ import { MadeWithTag } from "../components/MadeWithTag";
 import MainLayout from "../components/MainLayout";
 import { urlObjectKeys } from "next/dist/shared/lib/utils";
 
-import { UserContext } from "../pages/_app";
+import { UserContext } from "./_app";
+import { GoBackStep } from "../components/StartAgainButton";
 
 // function TwitterCard(props) {
 //   console.log(props);
@@ -231,6 +232,7 @@ export default function Share(props) {
         <meta name="description" content="Twitter shoutout machine" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <GoBackStep newCount={1} />
       <h1 className="mb-2 text-4xl">Share your Shoutout</h1>
       <p className="mb-6 text-lg">
         We've generated an image for you to share in your shoutout. Simply
