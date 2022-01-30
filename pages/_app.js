@@ -4,7 +4,8 @@ export const UserContext = createContext(null);
 
 // Color State
 const initialState = {
-  user: null,
+  searchUser: null,
+  count: 1,
 };
 // Color Reducer
 function reducer(state, action) {
@@ -14,7 +15,12 @@ function reducer(state, action) {
       // being returned, with the color value updated
       return {
         ...state,
-        user: action.payload,
+        searchUser: action.payload,
+      };
+    case "increment-count":
+      return {
+        ...state,
+        count: state.count + 1,
       };
     default:
       throw new Error();

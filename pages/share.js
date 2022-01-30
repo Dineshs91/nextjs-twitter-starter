@@ -4,31 +4,31 @@ import { fetchUser } from "../services/twitter";
 import { MadeWithTag } from "../components/MadeWithTag";
 import { urlObjectKeys } from "next/dist/shared/lib/utils";
 
-function TwitterCard(props) {
-  console.log(props);
-  let profileImageURL = props.twitterInfo.profileImageURL.replace(
-    /_normal/g,
-    ""
-  );
+// function TwitterCard(props) {
+//   console.log(props);
+//   let profileImageURL = props.twitterInfo.profileImageURL.replace(
+//     /_normal/g,
+//     ""
+//   );
 
-  return (
-    <div className="w-auto p-2 overflow-hidden border rounded-md">
-      <div className="relative">
-        <img className="mx-auto" src={props.twitterInfo.profileBannerURL} />
-        <div className="absolute border-4 border-white rounded-full top-14 left-4 lg:top-24">
-          <img className="w-24 h-24 rounded-full" src={profileImageURL} />
-        </div>
-      </div>
-      <div className="px-4 mt-28 lg:mt-16">
-        <p className="text-lg font-bold leading-6">{props.twitterInfo.name}</p>
-        <p className="text-sm text-gray-600">@{props.twitterInfo.screenName}</p>
-        <p className="mt-4 text-sm whitespace-pre-wrap">
-          {props.twitterInfo.description}
-        </p>
-      </div>
-    </div>
-  );
-}
+//   return (
+//     <div className="w-auto p-2 overflow-hidden border rounded-md">
+//       <div className="relative">
+//         <img className="mx-auto" src={props.twitterInfo.profileBannerURL} />
+//         <div className="absolute border-4 border-white rounded-full top-14 left-4 lg:top-24">
+//           <img className="w-24 h-24 rounded-full" src={profileImageURL} />
+//         </div>
+//       </div>
+//       <div className="px-4 mt-28 lg:mt-16">
+//         <p className="text-lg font-bold leading-6">{props.twitterInfo.name}</p>
+//         <p className="text-sm text-gray-600">@{props.twitterInfo.screenName}</p>
+//         <p className="mt-4 text-sm whitespace-pre-wrap">
+//           {props.twitterInfo.description}
+//         </p>
+//       </div>
+//     </div>
+//   );
+// }
 
 function BasicDefault(props) {
   console.log(props);

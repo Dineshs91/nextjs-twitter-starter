@@ -1,4 +1,5 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
+
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -10,11 +11,14 @@ import { MadeWithTag } from "../components/MadeWithTag";
 import { UserContext } from "../pages/_app";
 import { ColorSquare } from "../components/ColorSquare";
 
+import { fetchUser } from "../services/twitter";
+
 export default function Home() {
   const { state, dispatch } = useContext(UserContext);
   const [selectedStyle, setSelectedStyle] = useState("basic-default");
   const [cardBgColor, setCardBgColor] = useState("bg-blue-500");
   const [cardTextColor, setCardTextColor] = useState("text-blue-500");
+  const [userValid, setUserValid] = useState(false);
   const searchRef = useRef(null);
   const router = useRouter();
 
@@ -22,6 +26,29 @@ export default function Home() {
     setCardBgColor(bg);
     setCardTextColor(text);
   }
+
+  const ValidateUser = async (inputValue) => {
+    const response = await fetch("/api/twitter-user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        twitterHandle: inputValue,
+      }),
+    });
+
+    if (!response.ok) {
+      // throw new Error(`Error: ${response.status}`);
+      console.log(response.status);
+      setUserValid(false);
+    } else {
+      const validatedUser = await response.json();
+      console.log(response.status);
+      console.log(validatedUser);
+      setUserValid(validatedUser);
+    }
+  };
 
   return (
     <div className="flex flex-col w-full max-h-screen">
@@ -130,21 +157,71 @@ export default function Home() {
               Using the box below, search for a Twitter user to create a
               shoutout for.
             </p>
-            <form className="flex">
+            <form className="relative flex">
               <label className="flex items-center justify-center w-12 h-12 text-xl font-bold text-white rounded-tl-lg rounded-bl-lg bg-mid">
                 @
               </label>
               <input
-                className="w-full h-12 px-3 py-4 text-lg bg-white border rounded-tr-lg rounded-br-lg appearance-none text-mid border-xlight"
+                className="w-full h-12 px-3 py-4 text-lg bg-white border rounded-tr-lg rounded-br-lg appearance-none text-mid border-xlight focus:outline-none"
                 placeholder="danielcranney"
                 ref={searchRef}
-                onChange={() =>
-                  dispatch({
-                    type: "search-user",
-                    payload: searchRef.current.value,
-                  })
-                }
+                onChange={() => {
+                  if (
+                    searchRef.current.value.length < 2 ||
+                    searchRef.current.value.length > 15
+                  ) {
+                    console.log("Username is less than 2 or greater than 15");
+                    dispatch({
+                      type: "search-user",
+                      payload: "",
+                    });
+                  } else {
+                    dispatch({
+                      type: "search-user",
+                      payload: searchRef.current.value,
+                    });
+                    ValidateUser(searchRef.current.value);
+                  }
+                }}
               />
+
+              {!userValid ? (
+                <p className="absolute flex items-center w-auto h-8 p-2 mb-0 text-xs font-semibold tracking-wider text-red-500 uppercase -translate-y-1/2 bg-red-500 rounded-md right-2 top-1/2 bg-opacity-10">
+                  <svg
+                    className="w-4 h-4 mr-1.5 text-red-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
+                    ></path>
+                  </svg>
+                  User not valid
+                </p>
+              ) : (
+                <p className="absolute flex items-center w-auto h-8 p-2 mb-0 text-xs font-semibold tracking-wider text-green-500 uppercase -translate-y-1/2 bg-green-500 rounded-md right-2 top-1/2 bg-opacity-10">
+                  <svg
+                    className="w-4 h-4 mr-1.5 text-green-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    ></path>
+                  </svg>
+                  User valid
+                </p>
+              )}
             </form>
             <GoToNextStep />
           </section>
@@ -474,7 +551,7 @@ export default function Home() {
                 router.push({
                   pathname: "/share",
                   query: {
-                    searchUser: state.user,
+                    searchUser: state.searchUser,
                     cardStyle: selectedStyle,
                     textColor: cardTextColor,
                     bgColor: cardBgColor,
