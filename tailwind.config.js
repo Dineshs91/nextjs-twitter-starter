@@ -28,6 +28,9 @@ module.exports = {
           lg: "3rem",
         },
       },
+      width: {
+        128: "32rem",
+      },
     },
   },
   plugins: [],

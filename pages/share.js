@@ -175,7 +175,7 @@ function BannerAlternative(props) {
     <div
       className={`bg-xlight relative flex flex-col items-start justify-center p-8 rounded-lg  hover:cursor-pointer border-8 group transition-all duration-150 ease-in-out border-xlight`}
     >
-      <div className="relative grid grid-cols-3 gap-6 p-8 bg-white rounded-lg shadow-lg shadow-light/30">
+      <div className="relative grid grid-cols-3 gap-6 p-8 overflow-hidden bg-white rounded-lg shadow-lg shadow-light/30">
         <div
           className={`absolute top-0 left-0 w-20 h-full overflow-hidden ${bgColor}`}
         >

@@ -12,6 +12,14 @@ import { UserContext } from "../pages/_app";
 import { ColorSquare } from "../components/ColorSquare";
 
 import { fetchUser } from "../services/twitter";
+import { BasicDefault } from "../components/styles/BasicDefault";
+import { BasicAlternative } from "../components/styles/BasicAlt";
+import { BannerDefault } from "../components/styles/BannerDefault";
+import { BannerAlt } from "../components/styles/BannerAlt";
+import { PreviewBasicDefault } from "../components/previews/PreviewBasicDefault";
+import { PreviewBasicAlternative } from "../components/previews/PreviewBasicAlt";
+import { PreviewBannerDefault } from "../components/previews/PreviewBannerDefault";
+import { PreviewBannerAlternative } from "../components/previews/PreviewBannerAlt";
 
 export default function Home() {
   const { state, dispatch } = useContext(UserContext);
@@ -162,7 +170,7 @@ export default function Home() {
                 @
               </label>
               <input
-                className="w-full h-12 px-3 py-4 text-lg bg-white border rounded-tr-lg rounded-br-lg appearance-none text-mid border-xlight focus:outline-none"
+                className="w-full h-12 px-3 py-4 text-lg bg-white border rounded-tr-lg rounded-br-lg appearance-none placeholder:text-mid text-dark border-xlight focus:outline-none"
                 placeholder="danielcranney"
                 ref={searchRef}
                 onChange={() => {
@@ -236,153 +244,25 @@ export default function Home() {
             </p>
             <article className="grid grid-cols-2 gap-6">
               {/* Style 1 - Basic Default */}
-              <div
-                className={`relative p-8 rounded-lg bg-xlight border-8 hover:cursor-pointer group transition-all duration-150 ease-in-out ${
-                  selectedStyle === "basic-default"
-                    ? "border-brand"
-                    : "border-xlight"
-                }`}
-                onClick={() => {
-                  setSelectedStyle("basic-default");
-                }}
-              >
-                {selectedStyle === "basic-default" ? <SelectedTag /> : null}
-                <div className="flex flex-col items-center justify-center p-8 bg-white rounded-lg shadow-lg shadow-light/30">
-                  <div className="w-1/3">
-                    <Image
-                      src="/profile.jpg"
-                      width={486}
-                      height={486}
-                      className="object-scale-down overflow-hidden rounded-full"
-                    />
-                  </div>
-                  <p className="mb-1 text-2xl font-bold text-dark">
-                    Sara Jenkins
-                  </p>
-                  <p className="text-base font-semibold tracking-wider text-brand">
-                    @sarajenkins90
-                  </p>
-                  <p className="mb-0 text-sm tracking-wide text-center text-mid">
-                    A designer and developer in Queensland, Australia. Coding by
-                    day, designing by night.
-                  </p>
-                </div>
-                <MadeWithTag />
-              </div>
+              <BasicDefault
+                selectedStyle={selectedStyle}
+                setSelectedStyle={setSelectedStyle}
+              />
               {/* Style 2 - Basic Alternative */}
-              <div
-                className={`bg-xlight relative flex flex-col items-start justify-center p-8 rounded-lg  hover:cursor-pointer border-8 group transition-all duration-150 ease-in-out ${
-                  selectedStyle === "basic-alt"
-                    ? "border-brand"
-                    : "border-xlight"
-                }`}
-                onClick={() => {
-                  setSelectedStyle("basic-alt");
-                }}
-              >
-                {selectedStyle === "basic-alt" ? <SelectedTag /> : null}
-                <div className="grid grid-cols-3 gap-6 p-8 bg-white rounded-lg shadow-lg shadow-light/30">
-                  <div className="flex items-center h-full col-span-1">
-                    <Image
-                      src="/profile.jpg"
-                      width={486}
-                      height={486}
-                      className="object-scale-down overflow-hidden rounded-full"
-                    />
-                  </div>
-                  <div className="col-span-2">
-                    <p className="mb-1 text-2xl font-bold text-dark">
-                      Sara Jenkins
-                    </p>
-                    <p className="text-base font-semibold tracking-wider text-brand">
-                      @sarajenkins90
-                    </p>
-                    <p className="mb-0 text-sm tracking-wide text-mid">
-                      A designer and developer in Queensland, Australia. Coding
-                      by day, designing by night.
-                    </p>
-                  </div>
-                </div>
-                <MadeWithTag />
-              </div>
+              <BasicAlternative
+                selectedStyle={selectedStyle}
+                setSelectedStyle={setSelectedStyle}
+              />
               {/* Style 3 - With Banner Default */}
-              <div
-                className={`relative p-8 rounded-lg bg-xlight border-8 hover:cursor-pointer group transition-all duration-150 ease-in-out ${
-                  selectedStyle === "banner-default"
-                    ? "border-brand"
-                    : "border-xlight"
-                }`}
-                onClick={() => {
-                  setSelectedStyle("banner-default");
-                }}
-              >
-                {selectedStyle === "banner-default" ? <SelectedTag /> : null}
-                <div className="relative flex flex-col items-center justify-center p-8 overflow-hidden bg-white rounded-lg shadow-lg shadow-light/30">
-                  <div className="absolute top-0 w-full overflow-hidden bg-blue-500 h-28">
-                    <div className="bg-[url('/profile.jpg')] h-full bg-center opacity-20"></div>
-                  </div>
-                  <div className="w-1/3">
-                    <div className="bg-white border-2 border-white">
-                      <Image
-                        src="/profile.jpg"
-                        width={486}
-                        height={486}
-                        className="object-scale-down overflow-hidden rounded-full"
-                      />
-                    </div>
-                  </div>
-                  <p className="mb-1 text-2xl font-bold text-dark">
-                    Sara Jenkins
-                  </p>
-                  <p className="text-base font-semibold tracking-wider text-brand">
-                    @sarajenkins90
-                  </p>
-                  <p className="mb-0 text-sm tracking-wide text-center text-mid">
-                    A designer and developer in Queensland, Australia. Coding by
-                    day, designing by night.
-                  </p>
-                </div>
-                <MadeWithTag />
-              </div>
+              <BannerDefault
+                selectedStyle={selectedStyle}
+                setSelectedStyle={setSelectedStyle}
+              />
               {/* Style 4 - With Banner Alternative */}
-              <div
-                className={`bg-xlight relative flex flex-col items-start justify-center p-8 rounded-lg  hover:cursor-pointer border-8 group transition-all duration-150 ease-in-out ${
-                  selectedStyle === "banner-alt"
-                    ? "border-brand"
-                    : "border-xlight"
-                }`}
-                onClick={() => {
-                  setSelectedStyle("banner-alt");
-                }}
-              >
-                {selectedStyle === "banner-alt" ? <SelectedTag /> : null}
-                <div className="relative grid grid-cols-3 gap-6 p-8 bg-white rounded-lg shadow-lg shadow-light/30">
-                  <div className="absolute top-0 left-0 w-20 h-full overflow-hidden bg-blue-500">
-                    <div className="bg-[url('/profile.jpg')] h-full bg-center opacity-20"></div>
-                  </div>
-                  <div className="flex items-center h-full col-span-1">
-                    <Image
-                      src="/profile.jpg"
-                      width={486}
-                      height={486}
-                      className="object-scale-down overflow-hidden rounded-full"
-                    />
-                  </div>
-                  <div className="col-span-2">
-                    <p className="mb-1 text-2xl font-bold text-dark">
-                      Sara Jenkins
-                    </p>
-                    <p className="text-base font-semibold tracking-wider text-brand">
-                      @sarajenkins90
-                    </p>
-                    <p className="mb-0 text-sm tracking-wide text-mid">
-                      A designer and developer in Queensland, Australia. Coding
-                      by day, designing by night.
-                    </p>
-                  </div>
-                </div>
-                <MadeWithTag />
-              </div>
+              <BannerAlt
+                selectedStyle={selectedStyle}
+                setSelectedStyle={setSelectedStyle}
+              />
             </article>
             <GoToNextStep />
           </section>
@@ -498,49 +378,16 @@ export default function Home() {
                 </article>
               </div>
               {/* Preview */}
-              <div className="flex w-1/2">
-                {/* Style 3 - With Banner Default */}
-                <div
-                  className={`flex flex-col relative p-8 rounded-lg bg-xlight border-8 hover:cursor-pointer group transition-all duration-150 ease-in-out border-xlight`}
-                >
-                  <div className="relative flex flex-col items-center justify-center p-8 overflow-hidden bg-white rounded-lg shadow-lg w-96 shadow-light/30">
-                    <div
-                      className={`absolute top-0 z-10 w-full overflow-hidden ${cardBgColor} h-28`}
-                    >
-                      <div className="h-full bg-center"></div>
-                    </div>
-                    <div className="relative z-30 flex items-center justify-center w-1/3">
-                      <div className="flex w-24 h-24 mt-2 mb-6 bg-gray-300 rounded-full"></div>
-                    </div>
-                    <div className="h-6 mb-2 rounded-md w-36 bg-dark"></div>
-                    <div
-                      className={`h-4 mb-4 rounded-md w-32 ${cardBgColor}`}
-                    ></div>
-                    <div className="flex flex-wrap items-center justify-center space-x-2 w-60">
-                      <div className={`h-3 rounded-md w-16 bg-light mb-2`}>
-                        &nbsp;
-                      </div>
-                      <div className={`h-3 rounded-md w-12 bg-light mb-2`}>
-                        &nbsp;
-                      </div>
-                      <div className={`h-3 rounded-md w-8 bg-light mb-2`}>
-                        &nbsp;
-                      </div>
-                      <div className={`h-3 rounded-md w-10 bg-light mb-2`}>
-                        &nbsp;
-                      </div>
-                      <div className={`h-3 rounded-md w-12 bg-light mb-2`}>
-                        &nbsp;
-                      </div>
-                      <div className={`h-3 rounded-md w-8 bg-light mb-2`}>
-                        &nbsp;
-                      </div>
-                      <div className={`h-3 rounded-md w-12 bg-light mb-2`}>
-                        &nbsp;
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div className="flex flex-col w-1/2">
+                {selectedStyle === "basic-default" ? (
+                  <PreviewBasicDefault cardBgColor={cardBgColor} />
+                ) : selectedStyle === "basic-alt" ? (
+                  <PreviewBasicAlternative cardBgColor={cardBgColor} />
+                ) : selectedStyle === "banner-default" ? (
+                  <PreviewBannerDefault cardBgColor={cardBgColor} />
+                ) : selectedStyle === "banner-alt" ? (
+                  <PreviewBannerAlternative cardBgColor={cardBgColor} />
+                ) : null}
               </div>
             </article>
           </section>
