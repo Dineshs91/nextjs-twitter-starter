@@ -1,5 +1,6 @@
 import React, { createContext, useReducer, useState } from "react";
 import "../styles/globals.css";
+import { InView } from "react-intersection-observer";
 export const UserContext = createContext(null);
 
 // Color State

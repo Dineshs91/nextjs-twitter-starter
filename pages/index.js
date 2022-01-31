@@ -65,8 +65,8 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col w-full px-12 pb-12 ml-80">
-      <main>
+    <div className="flex flex-col w-full px-4 pb-12 ml-20 lg:px-12 lg:ml-80">
+      <main className="w-full">
         <Head>
           <title>holr | Create a Shoutout on Twitter</title>
           <meta name="description" content="Twitter shoutout machine" />
@@ -76,7 +76,7 @@ export default function Home() {
         {/* Search Section */}
         <section
           id="find-user"
-          className="flex flex-col py-12 border-b-2 border-xlight"
+          className="flex flex-col py-4 border-b-2 lg:py-12 border-xlight"
         >
           <p className="mb-0 font-semibold tracking-wide uppercase text-mid">
             Step 1
@@ -158,7 +158,7 @@ export default function Home() {
         {/* Select Style */}
         <section
           id="select-style"
-          className="flex flex-col pt-12 pb-12 border-b-2 border-xlight"
+          className="flex flex-col pt-4 pb-4 border-b-2 lg:pb-12 lg:pt-12 border-xlight"
         >
           <p className="mb-0 font-semibold tracking-wide uppercase text-mid">
             Step 2
@@ -167,34 +167,37 @@ export default function Home() {
           <p className="mb-6 text-lg">
             Select one of the pre-made styles below
           </p>
-          <article className="grid grid-cols-2 gap-6">
+          <article className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             {/* Style 1 - Basic Default */}
-            <BasicDefault
+            {/* <BasicDefault
               selectedStyle={selectedStyle}
               setSelectedStyle={setSelectedStyle}
-            />
+            /> */}
             {/* Style 2 - Basic Alternative */}
-            <BasicAlternative
+            {/* <BasicAlternative
               selectedStyle={selectedStyle}
               setSelectedStyle={setSelectedStyle}
-            />
+            /> */}
             {/* Style 3 - With Banner Default */}
-            <BannerDefault
+            {/* <BannerDefault
               selectedStyle={selectedStyle}
               setSelectedStyle={setSelectedStyle}
-            />
+            /> */}
             {/* Style 4 - With Banner Alternative */}
-            <BannerAlt
+            {/* <BannerAlt
               selectedStyle={selectedStyle}
               setSelectedStyle={setSelectedStyle}
-            />
+            /> */}
           </article>
           <GoToNextStep newCount={3} scrollTo={"/#edit-colors"} />
         </section>
         {/* Edit Colors */}
-        <section id="edit-colors" className="flex flex-col pt-12 pb-12">
-          <article className="flex w-full">
-            <div className="w-1/2">
+        <section
+          id="edit-colors"
+          className="flex flex-col pt-4 pb-4 border-b-2 lg:pb-12 lg:pt-12 border-xlight"
+        >
+          <article className="flex flex-col w-full lg:flex-row">
+            <div className="w-full lg:w-1/2">
               <p className="mb-0 font-semibold tracking-wide uppercase text-mid">
                 Step 3
               </p>
@@ -203,107 +206,103 @@ export default function Home() {
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit.
               </p>
               {/* Color Buttons */}
-              <article className="flex flex-col w-auto gap-y-4">
-                <div className="flex gap-x-4">
-                  <ColorSquare
-                    bgColor={`bg-slate-500`}
-                    textColor={`text-slate-500`}
-                    handleColorSelection={handleColorSelection}
-                  />
-                  <ColorSquare
-                    bgColor={`bg-gray-500`}
-                    textColor={`text-gray-500`}
-                    handleColorSelection={handleColorSelection}
-                  />
-                  <ColorSquare
-                    bgColor={`bg-red-500`}
-                    textColor={`text-red-500`}
-                    handleColorSelection={handleColorSelection}
-                  />
-                  <ColorSquare
-                    bgColor={`bg-orange-500`}
-                    textColor={`text-orange-500`}
-                    handleColorSelection={handleColorSelection}
-                  />
-                  <ColorSquare
-                    bgColor={`bg-amber-500`}
-                    textColor={`text-amber-500`}
-                    handleColorSelection={handleColorSelection}
-                  />
-                  <ColorSquare
-                    bgColor={`bg-yellow-500`}
-                    textColor={`text-yellow-500`}
-                    handleColorSelection={handleColorSelection}
-                  />
-                </div>
-                <div className="flex gap-x-4">
-                  <ColorSquare
-                    bgColor={`bg-lime-500`}
-                    textColor={`text-lime-500`}
-                    handleColorSelection={handleColorSelection}
-                  />
-                  <ColorSquare
-                    bgColor={`bg-green-500`}
-                    textColor={`text-green-500`}
-                    handleColorSelection={handleColorSelection}
-                  />
-                  <ColorSquare
-                    bgColor={`bg-emerald-500`}
-                    textColor={`text-emerald-500`}
-                    handleColorSelection={handleColorSelection}
-                  />
-                  <ColorSquare
-                    bgColor={`bg-teal-500`}
-                    textColor={`text-teal-500`}
-                    handleColorSelection={handleColorSelection}
-                  />
-                  <ColorSquare
-                    bgColor={`bg-cyan-500`}
-                    textColor={`text-cyan-500`}
-                    handleColorSelection={handleColorSelection}
-                  />
-                  <ColorSquare
-                    bgColor={`bg-blue-500`}
-                    textColor={`text-blue-500`}
-                    handleColorSelection={handleColorSelection}
-                  />
-                </div>
-                <div className="flex gap-x-4">
-                  <ColorSquare
-                    bgColor={`bg-indigo-500`}
-                    textColor={`text-indigo-500`}
-                    handleColorSelection={handleColorSelection}
-                  />
-                  <ColorSquare
-                    bgColor={`bg-violet-500`}
-                    textColor={`text-violet-500`}
-                    handleColorSelection={handleColorSelection}
-                  />
-                  <ColorSquare
-                    bgColor={`bg-purple-500`}
-                    textColor={`text-purple-500`}
-                    handleColorSelection={handleColorSelection}
-                  />
-                  <ColorSquare
-                    bgColor={`bg-fuchsia-500`}
-                    textColor={`text-fuchsia-500`}
-                    handleColorSelection={handleColorSelection}
-                  />
-                  <ColorSquare
-                    bgColor={`bg-pink-500`}
-                    textColor={`text-pink-500`}
-                    handleColorSelection={handleColorSelection}
-                  />
-                  <ColorSquare
-                    bgColor={`bg-rose-500`}
-                    textColor={`text-rose-500`}
-                    handleColorSelection={handleColorSelection}
-                  />
-                </div>
+              <article className="flex flex-wrap w-auto gap-y-4 gap-x-4">
+                <ColorSquare
+                  bgColor={`bg-slate-500`}
+                  textColor={`text-slate-500`}
+                  handleColorSelection={handleColorSelection}
+                />
+                <ColorSquare
+                  bgColor={`bg-gray-500`}
+                  textColor={`text-gray-500`}
+                  handleColorSelection={handleColorSelection}
+                />
+                <ColorSquare
+                  bgColor={`bg-red-500`}
+                  textColor={`text-red-500`}
+                  handleColorSelection={handleColorSelection}
+                />
+                <ColorSquare
+                  bgColor={`bg-orange-500`}
+                  textColor={`text-orange-500`}
+                  handleColorSelection={handleColorSelection}
+                />
+                <ColorSquare
+                  bgColor={`bg-amber-500`}
+                  textColor={`text-amber-500`}
+                  handleColorSelection={handleColorSelection}
+                />
+                <ColorSquare
+                  bgColor={`bg-yellow-500`}
+                  textColor={`text-yellow-500`}
+                  handleColorSelection={handleColorSelection}
+                />
+
+                <ColorSquare
+                  bgColor={`bg-lime-500`}
+                  textColor={`text-lime-500`}
+                  handleColorSelection={handleColorSelection}
+                />
+                <ColorSquare
+                  bgColor={`bg-green-500`}
+                  textColor={`text-green-500`}
+                  handleColorSelection={handleColorSelection}
+                />
+                <ColorSquare
+                  bgColor={`bg-emerald-500`}
+                  textColor={`text-emerald-500`}
+                  handleColorSelection={handleColorSelection}
+                />
+                <ColorSquare
+                  bgColor={`bg-teal-500`}
+                  textColor={`text-teal-500`}
+                  handleColorSelection={handleColorSelection}
+                />
+                <ColorSquare
+                  bgColor={`bg-cyan-500`}
+                  textColor={`text-cyan-500`}
+                  handleColorSelection={handleColorSelection}
+                />
+                <ColorSquare
+                  bgColor={`bg-blue-500`}
+                  textColor={`text-blue-500`}
+                  handleColorSelection={handleColorSelection}
+                />
+
+                <ColorSquare
+                  bgColor={`bg-indigo-500`}
+                  textColor={`text-indigo-500`}
+                  handleColorSelection={handleColorSelection}
+                />
+                <ColorSquare
+                  bgColor={`bg-violet-500`}
+                  textColor={`text-violet-500`}
+                  handleColorSelection={handleColorSelection}
+                />
+                <ColorSquare
+                  bgColor={`bg-purple-500`}
+                  textColor={`text-purple-500`}
+                  handleColorSelection={handleColorSelection}
+                />
+                <ColorSquare
+                  bgColor={`bg-fuchsia-500`}
+                  textColor={`text-fuchsia-500`}
+                  handleColorSelection={handleColorSelection}
+                />
+                <ColorSquare
+                  bgColor={`bg-pink-500`}
+                  textColor={`text-pink-500`}
+                  handleColorSelection={handleColorSelection}
+                />
+                <ColorSquare
+                  bgColor={`bg-rose-500`}
+                  textColor={`text-rose-500`}
+                  handleColorSelection={handleColorSelection}
+                />
               </article>
             </div>
             {/* Preview */}
-            <div className="flex flex-col w-1/2">
+            <div className="flex flex-col w-full mt-8 lg:mt-0 lg:w-1/2">
               {selectedStyle === "basic-default" ? (
                 <PreviewBasicDefault cardBgColor={cardBgColor} />
               ) : selectedStyle === "basic-alt" ? (

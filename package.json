@@ -13,6 +13,7 @@
     "react": "17.0.2",
     "react-component-export-image": "^1.0.6",
     "react-dom": "17.0.2",
+    "react-intersection-observer": "^8.33.1",
     "twitter-lite": "^1.1.0"
   },
   "devDependencies": {

@@ -6,9 +6,9 @@ import Link from "next/link";
 export const Sidebar = () => {
   const { state, dispatch } = useContext(UserContext);
   return (
-    <aside className="fixed top-0 h-full p-8 bg-white border-r w-80 border-xlight">
+    <aside className="fixed top-0 w-20 h-full p-4 bg-white border-r lg:p-8 lg:w-80 border-xlight">
       <div className="flex items-center mb-8">
-        <div className="flex items-center justify-center w-12 h-12 mr-2 rounded-2xl bg-brand">
+        <div className="flex items-center justify-center w-12 h-12 mr-0 lg:mr-2 rounded-2xl bg-brand">
           <svg
             className="w-8 h-8 text-white"
             fill="currentColor"
@@ -19,7 +19,7 @@ export const Sidebar = () => {
             <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"></path>
           </svg>
         </div>
-        <h1 className="mb-0 text-3xl font-semibold">holr</h1>
+        <h1 className="hidden mb-0 text-3xl font-semibold lg:block">holr</h1>
       </div>
       <div className="flex flex-col">
         <Link href="#find-user">
@@ -30,14 +30,14 @@ export const Sidebar = () => {
                 payload: 1,
               });
             }}
-            className={`transition-all duration-150 ease-in-out flex group items-center p-3 text-left rounded-md hover:cursor-pointer ${
+            className={`transition-all duration-150 ease-in-out flex group items-center p-3 text-left rounded-md hover:cursor-pointer justify-center lg:justify-start ${
               state.count === 1
                 ? "bg-opacity-5 bg-brand"
                 : "bg-opacity-0 bg-transparent"
             }`}
           >
             <svg
-              className={`w-5 h-5 mr-3 ${
+              className={`w-5 h-5 mr-0 lg:mr-3 ${
                 state.count === 1 ? "text-brand" : "text-mid"
               }`}
               fill="none"
@@ -53,7 +53,7 @@ export const Sidebar = () => {
               ></path>
             </svg>
             <p
-              className={`mb-0 text-lg ${
+              className={`mb-0 text-lg hidden lg:inline-flex ${
                 state.count === 1 ? "text-brand" : "text-mid"
               }`}
             >
@@ -69,14 +69,14 @@ export const Sidebar = () => {
                 payload: 2,
               });
             }}
-            className={`transition-all duration-150 ease-in-out flex group items-center p-3 text-left rounded-md hover:cursor-pointer ${
+            className={`transition-all duration-150 ease-in-out flex group items-center p-3 text-left rounded-md hover:cursor-pointer justify-center lg:justify-start ${
               state.count === 2
                 ? "bg-opacity-5 bg-brand"
                 : "bg-opacity-0 bg-transparent"
             }`}
           >
             <svg
-              className={`w-5 h-5 mr-3 ${
+              className={`w-5 h-5 mr-0 lg:mr-3 ${
                 state.count === 2 ? "text-brand" : "text-mid"
               }`}
               fill="none"
@@ -92,7 +92,7 @@ export const Sidebar = () => {
               ></path>
             </svg>
             <p
-              className={`mb-0 text-lg ${
+              className={`mb-0 text-lg hidden lg:inline-flex ${
                 state.count === 2 ? "text-brand" : "text-mid"
               }`}
             >
@@ -108,14 +108,14 @@ export const Sidebar = () => {
                 payload: 3,
               });
             }}
-            className={`transition-all duration-150 ease-in-out flex group items-center p-3 text-left rounded-md hover:cursor-pointer ${
+            className={`transition-all duration-150 ease-in-out flex group items-center p-3 text-left rounded-md hover:cursor-pointer justify-center lg:justify-start ${
               state.count === 3
                 ? "bg-opacity-5 bg-brand"
                 : "bg-opacity-0 bg-transparent"
             }`}
           >
             <svg
-              className={`w-5 h-5 mr-3 ${
+              className={`w-5 h-5 mr-0 lg:mr-3 ${
                 state.count === 3 ? "text-brand" : "text-mid"
               }`}
               fill="none"
@@ -131,7 +131,7 @@ export const Sidebar = () => {
               ></path>
             </svg>
             <p
-              className={`mb-0 text-lg ${
+              className={`mb-0 text-lg hidden lg:inline-flex ${
                 state.count === 3 ? "text-brand" : "text-mid"
               }`}
             >
@@ -146,14 +146,14 @@ export const Sidebar = () => {
               payload: 4,
             });
           }}
-          className={`transition-all duration-150 ease-in-out flex group items-center p-3 text-left rounded-md hover:cursor-pointer ${
+          className={`transition-all duration-150 ease-in-out flex group items-center p-3 text-left rounded-md hover:cursor-pointer justify-center lg:justify-start ${
             state.count === 4
               ? "bg-opacity-5 bg-brand"
               : "bg-opacity-0 bg-transparent"
           }`}
         >
           <svg
-            className={`w-5 h-5 mr-3 ${
+            className={`w-5 h-5 mr-0 lg:mr-3 ${
               state.count === 4 ? "text-brand" : "text-mid"
             }`}
             fill="none"
@@ -170,7 +170,7 @@ export const Sidebar = () => {
           </svg>
 
           <p
-            className={`mb-0 text-lg ${
+            className={`mb-0 text-lg hidden lg:inline-flex ${
               state.count === 4 ? "text-brand" : "text-mid"
             }`}
           >
