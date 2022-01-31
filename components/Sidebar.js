@@ -174,7 +174,7 @@ export const Sidebar = () => {
               state.count === 4 ? "text-brand" : "text-mid"
             }`}
           >
-            Generate Shoutout
+            Download Shoutout
           </p>
         </button>
       </div>

@@ -29,6 +29,7 @@ export default function Home() {
   const [cardBgColor, setCardBgColor] = useState("bg-blue-500");
   const [cardTextColor, setCardTextColor] = useState("text-blue-500");
   const [userValid, setUserValid] = useState(false);
+  const [errorGenerating, setErrorGenerating] = useState(false);
   const searchRef = useRef(null);
   const router = useRouter();
 
@@ -49,12 +50,15 @@ export default function Home() {
     });
 
     if (!response.ok) {
+      const resError = await response.json();
       // throw new Error(`Error: ${response.status}`);
+      // console.log(response.message);
+      console.log(resError.message);
       console.log(response.status);
       setUserValid(false);
     } else {
-      const validatedUser = await response.json();
       console.log(response.status);
+      const validatedUser = await response.json();
       console.log(validatedUser);
       setUserValid(validatedUser);
     }
@@ -316,20 +320,30 @@ export default function Home() {
         <section className="flex flex-col py-12 border-b-2 border-xlight">
           <button
             onClick={() => {
-              router.push({
-                pathname: "/generate",
-                query: {
-                  searchUser: state.searchUser,
-                  cardStyle: selectedStyle,
-                  textColor: cardTextColor,
-                  bgColor: cardBgColor,
-                },
-              });
+              if (userValid) {
+                setErrorGenerating(false);
+                router.push({
+                  pathname: "/generate",
+                  query: {
+                    searchUser: state.searchUser,
+                    cardStyle: selectedStyle,
+                    textColor: cardTextColor,
+                    bgColor: cardBgColor,
+                  },
+                });
+              } else {
+                setErrorGenerating(true);
+              }
             }}
-            className="p-3.5 font-bold text-white rounded-lg bg-brand"
+            className="w-1/2 p-3.5 font-bold text-white rounded-lg bg-brand mb-4"
           >
             Generate Shoutout
           </button>
+          {errorGenerating ? (
+            <div className="w-1/2 h-8 p-2 text-xs font-semibold text-center text-red-500 bg-red-500 rounded-md right-2 bg-opacity-10">
+              Error - Check user is valid
+            </div>
+          ) : null}
         </section>
       </main>
       <footer className="flex items-center w-full mt-12">

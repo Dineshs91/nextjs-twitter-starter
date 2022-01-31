@@ -36,7 +36,7 @@ export default async (req, res) => {
         res.status(200).json(twitterInfo);
       } catch (error) {
         console.log(error);
-        res.status(500).json({ message: "User not found on Twitter" });
+        return res.status(404).json({ message: error.errors[0].message });
       }
     }
   }

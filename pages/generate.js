@@ -1,4 +1,5 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
+
 import Image from "next/image";
 import Head from "next/head";
 import { fetchUser } from "../services/twitter";
@@ -35,7 +36,7 @@ import { GoBackStep } from "../components/StartAgainButton";
 //   );
 // }
 
-function BasicDefault(props) {
+const BasicDefault = React.forwardRef((props, ref) => {
   console.log(props);
   let twitterName = props.twitterInfo.name;
   let twitterScreenName = props.twitterInfo.screenName;
@@ -48,10 +49,11 @@ function BasicDefault(props) {
 
   return (
     <div
-      className={`relative p-8 rounded-lg bg-xlight border-8 hover:cursor-pointer group transition-all duration-150 ease-in-out border-xlight
+      ref={ref}
+      className={`w-128 relative p-8 rounded-lg bg-xlight hover:cursor-pointer group transition-all duration-150 ease-in-out border-xlight
         `}
     >
-      <div className="flex flex-col items-center justify-center p-8 bg-white rounded-lg shadow-lg shadow-light/30">
+      <div className="relative flex flex-col items-center justify-center p-8 bg-white rounded-lg">
         <div className="w-1/3">
           <Image
             src={profileImageURL}
@@ -71,7 +73,7 @@ function BasicDefault(props) {
       <MadeWithTag />
     </div>
   );
-}
+});
 
 function BasicAlternative(props) {
   console.log(props);
@@ -215,6 +217,8 @@ function BannerAlternative(props) {
 }
 
 export default function Share(props) {
+  const basicDefaultRef = useRef();
+
   console.log(props);
   const { state, dispatch } = useContext(UserContext);
 
@@ -235,39 +239,58 @@ export default function Share(props) {
       <GoBackStep newCount={1} />
       <h1 className="mb-2 text-4xl">Share your Shoutout</h1>
       <p className="mb-6 text-lg">
-        We've generated an image for you to share in your shoutout. Simply
-        download it as a JPG and tweet it out!
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit.
       </p>
 
-      <div className="mt-8 w-128">
-        {!props.twitterInfo ? (
-          <p>Couldn't fetch information from Twitter</p>
-        ) : props.cardStyle === "basic-default" ? (
-          <BasicDefault
-            twitterInfo={props.twitterInfo}
-            textColor={props.textColor}
-            bgColor={props.bgColor}
-          />
-        ) : props.cardStyle === "basic-alt" ? (
-          <BasicAlternative
-            twitterInfo={props.twitterInfo}
-            textColor={props.textColor}
-            bgColor={props.bgColor}
-          />
-        ) : props.cardStyle === "banner-default" ? (
-          <BannerDefault
-            twitterInfo={props.twitterInfo}
-            textColor={props.textColor}
-            bgColor={props.bgColor}
-          />
-        ) : props.cardStyle === "banner-alt" ? (
-          <BannerAlternative
-            twitterInfo={props.twitterInfo}
-            textColor={props.textColor}
-            bgColor={props.bgColor}
-          />
-        ) : null}
-      </div>
+      {!props.twitterInfo ? (
+        <p>Couldn't fetch information from Twitter</p>
+      ) : props.cardStyle === "basic-default" ? (
+        <div className="flex">
+          <article>
+            <BasicDefault
+              ref={basicDefaultRef}
+              twitterInfo={props.twitterInfo}
+              textColor={props.textColor}
+              bgColor={props.bgColor}
+            />
+          </article>
+          <article className="flex flex-col ml-4">
+            <p className="mb-6 text-lg">
+              We've generated an image for you to share in your shoutout. Simply
+              download it as a JPG and tweet it out!
+            </p>
+            <button
+              className="self-start p-3.5 font-bold text-white rounded-lg bg-brand"
+              onClick={async () => {
+                const { exportComponentAsJPEG } = await import(
+                  "react-component-export-image"
+                );
+                exportComponentAsJPEG(basicDefaultRef);
+              }}
+            >
+              Export As JPEG
+            </button>
+          </article>
+        </div>
+      ) : props.cardStyle === "basic-alt" ? (
+        <BasicAlternative
+          twitterInfo={props.twitterInfo}
+          textColor={props.textColor}
+          bgColor={props.bgColor}
+        />
+      ) : props.cardStyle === "banner-default" ? (
+        <BannerDefault
+          twitterInfo={props.twitterInfo}
+          textColor={props.textColor}
+          bgColor={props.bgColor}
+        />
+      ) : props.cardStyle === "banner-alt" ? (
+        <BannerAlternative
+          twitterInfo={props.twitterInfo}
+          textColor={props.textColor}
+          bgColor={props.bgColor}
+        />
+      ) : null}
     </main>
   );
 }
